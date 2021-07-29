@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Coursera_project</string>
+    <string name="login">Log In</string>
+    <string name="pass">Password</string>
+    <string name="registration">Registration</string>
+    <string name="login_error">Password or login are incorrect</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login_register_success">Registration successful!</string>
+    <string name="login_register_error">Registration Error!</string>
+
+    <string name="input_error">Input Error!</string>
+</resources>

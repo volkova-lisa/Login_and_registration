@@ -1,0 +1,2 @@
+rootProject.name = "Coursera_project"
+include ':app'
