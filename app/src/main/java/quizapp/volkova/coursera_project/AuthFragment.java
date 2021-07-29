@@ -22,6 +22,8 @@ public class AuthFragment extends Fragment {
     private Button loginButton;
     private Button regButton;
 
+    private SharedPreferencesHelper mSharedPreferencesHelper;
+
     public static AuthFragment newInstance() {
         
         Bundle args = new Bundle();
@@ -33,10 +35,17 @@ public class AuthFragment extends Fragment {
 
     private View.OnClickListener logButtonClick = v -> {
         //todo log in
+
+        for (User user: mSharedPreferencesHelper.getUsers()) {
+            if(user.getmLogin().equalsIgnoreCase(loginField.getText().toString())
+                && user.getmPassword().equals(passField.getText().toString())) {
+
+            }
+        }
         if (isEmailValid() && isPassValid()) {
             //enter app
-
-            Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
+            Intent startProfileIntent =
+                    new Intent(getActivity(), ProfileActivity.class);
             startProfileIntent.putExtra(ProfileActivity.USER_KEY,
                     new User(loginField.getText().toString(), passField.getText().toString()));
             //startProfileIntent.putExtra(ProfileActivity.PASS_KEY, passField.getText().toString());
@@ -50,6 +59,9 @@ public class AuthFragment extends Fragment {
 
     private View.OnClickListener regButtonClick = v -> {
         //todo register IT WAS HARD
+
+
+
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, RegistrationFragment.newInstance())
                 .commit();
@@ -75,11 +87,15 @@ public class AuthFragment extends Fragment {
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
         
         View v = inflater.inflate(R.layout.ac_auth, container, false);
+
+        mSharedPreferencesHelper = new SharedPreferencesHelper(getActivity());
 
         loginField = v.findViewById(R.id.etLogin);
         passField= v.findViewById(R.id.etPassword);
