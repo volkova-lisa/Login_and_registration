@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+//todo get rid of the fucking SingleFragmentActivity
+
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     public static final String TAG = SingleFragmentActivity.class.getSimpleName();
 
