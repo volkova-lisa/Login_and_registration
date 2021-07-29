@@ -42,6 +42,7 @@ public class RegistrationFragment extends Fragment {
 
                 if (isAdded) {
                     showMessage(R.string.login_register_success);
+                    getParentFragmentManager().popBackStack();
                 } else {
                     showMessage(R.string.login_register_error);
                 }
@@ -70,11 +71,7 @@ public class RegistrationFragment extends Fragment {
 
     private boolean isInputValid() {
         String email = mLogin.getText().toString();
-        if (isEmailValid(email) && isPasswordsValid()) {
-            return true;
-        }
-
-        return false;
+        return isEmailValid(email) && isPasswordsValid();
     }
 
     private boolean isEmailValid(String email) {

@@ -35,38 +35,41 @@ public class AuthFragment extends Fragment {
 
     private View.OnClickListener logButtonClick = v -> {
         //todo log in
-
+        boolean isLoginSuccess = false;
         for (User user: mSharedPreferencesHelper.getUsers()) {
-            if(user.getmLogin().equalsIgnoreCase(loginField.getText().toString())
-                && user.getmPassword().equals(passField.getText().toString())) {
+            if (user.getmLogin().equalsIgnoreCase(loginField.getText().toString())
+                    && user.getmPassword().equals(passField.getText().toString())) {
+                    isLoginSuccess = true;
+                if (isEmailValid() && isPassValid()) {
+                    //enter app
 
+                    Intent startProfileIntent =
+                            new Intent(getActivity(), ProfileActivity.class);
+                    startProfileIntent.putExtra(ProfileActivity.USER_KEY,
+                            new User(loginField.getText().toString(), passField.getText().toString()));
+                    //startProfileIntent.putExtra(ProfileActivity.PASS_KEY, passField.getText().toString());
+                    startActivity(startProfileIntent);
+                    getActivity().finish();
+                } else {
+                    showToast(R.string.login_error);
+                }
+                break;
             }
         }
-        if (isEmailValid() && isPassValid()) {
-            //enter app
-            Intent startProfileIntent =
-                    new Intent(getActivity(), ProfileActivity.class);
-            startProfileIntent.putExtra(ProfileActivity.USER_KEY,
-                    new User(loginField.getText().toString(), passField.getText().toString()));
-            //startProfileIntent.putExtra(ProfileActivity.PASS_KEY, passField.getText().toString());
-            startActivity(startProfileIntent);
-            getActivity().finish();
-        }
-        else {
+
+        if (isLoginSuccess) {
             showToast(R.string.login_error);
         }
     };
 
     private View.OnClickListener regButtonClick = v -> {
         //todo register IT WAS HARD
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, RegistrationFragment.newInstance())
+                        .addToBackStack(RegistrationFragment.class.getName())
+                        .commit();
+            };
 
-
-
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, RegistrationFragment.newInstance())
-                .commit();
-
-    };
     private LayoutInflater inflater;
     @Nullable
     private ViewGroup container;
