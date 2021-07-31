@@ -7,6 +7,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,14 +17,18 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 public class AuthFragment extends Fragment {
 
-    private EditText loginField;
+    private AutoCompleteTextView loginField;
     private EditText passField;
     private Button loginButton;
     private Button regButton;
 
     private SharedPreferencesHelper mSharedPreferencesHelper;
+
+    private ArrayAdapter<String> mLoginedUsersAdapter;
 
     public static AuthFragment newInstance() {
         
@@ -69,6 +75,14 @@ public class AuthFragment extends Fragment {
                         .addToBackStack(RegistrationFragment.class.getName())
                         .commit();
             };
+    private View.OnFocusChangeListener mOnLoginFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                loginField.showDropDown();
+            }
+        }
+    };
 
     private LayoutInflater inflater;
     @Nullable
@@ -107,6 +121,9 @@ public class AuthFragment extends Fragment {
 
         loginButton.setOnClickListener(logButtonClick);
         regButton.setOnClickListener(regButtonClick);
+
+        loginField.setOnFocusChangeListener(mOnLoginFocusChangeListener);
+        mLoginedUsersAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, mSharedPreferencesHelper.getSuccessLogins());
 
         return v;
     }
