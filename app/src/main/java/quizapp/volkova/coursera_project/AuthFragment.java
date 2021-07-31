@@ -75,6 +75,7 @@ public class AuthFragment extends Fragment {
                         .addToBackStack(RegistrationFragment.class.getName())
                         .commit();
             };
+
     private View.OnFocusChangeListener mOnLoginFocusChangeListener = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
@@ -123,7 +124,8 @@ public class AuthFragment extends Fragment {
         regButton.setOnClickListener(regButtonClick);
 
         loginField.setOnFocusChangeListener(mOnLoginFocusChangeListener);
-        mLoginedUsersAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, mSharedPreferencesHelper.getSuccessLogins());
+        mLoginedUsersAdapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, mSharedPreferencesHelper.getSuccessLogins());
+        loginField.setThreshold(1);
         loginField.setAdapter(mLoginedUsersAdapter);
 
         return v;
