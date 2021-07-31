@@ -124,6 +124,7 @@ public class AuthFragment extends Fragment {
 
         loginField.setOnFocusChangeListener(mOnLoginFocusChangeListener);
         mLoginedUsersAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, mSharedPreferencesHelper.getSuccessLogins());
+        loginField.setAdapter(mLoginedUsersAdapter);
 
         return v;
     }
