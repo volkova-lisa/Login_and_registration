@@ -17,8 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
-
 public class AuthFragment extends Fragment {
 
     private AutoCompleteTextView loginField;
@@ -46,6 +44,8 @@ public class AuthFragment extends Fragment {
             if (user.getmLogin().equalsIgnoreCase(loginField.getText().toString())
                     && user.getmPassword().equals(passField.getText().toString())) {
                     isLoginSuccess = true;
+                    user.setHasSuccessLogin(isLoginSuccess);
+                    mSharedPreferencesHelper.saveOrOverrideUser(user);
                 if (isEmailValid() && isPassValid()) {
                     //enter app
 
@@ -63,7 +63,7 @@ public class AuthFragment extends Fragment {
             }
         }
 
-        if (isLoginSuccess) {
+        if (!isLoginSuccess) {
             showToast(R.string.login_error);
         }
     };

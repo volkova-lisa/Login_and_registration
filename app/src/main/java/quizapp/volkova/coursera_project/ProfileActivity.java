@@ -21,11 +21,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mLogin;
     private TextView mPassword;
 
-    private View.OnClickListener mOnPhotoClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    private View.OnClickListener mOnPhotoClickListener = v -> {
 
-        }
     };
 
     @Override
