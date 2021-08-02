@@ -48,12 +48,8 @@ public class AuthFragment extends Fragment {
                     mSharedPreferencesHelper.saveOrOverrideUser(user);
                 if (isEmailValid() && isPassValid()) {
                     //enter app
-
-                    Intent startProfileIntent =
-                            new Intent(getActivity(), ProfileActivity.class);
-                    startProfileIntent.putExtra(ProfileActivity.USER_KEY,
-                            new User(loginField.getText().toString(), passField.getText().toString()));
-                    //startProfileIntent.putExtra(ProfileActivity.PASS_KEY, passField.getText().toString());
+                    Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
+                    startProfileIntent.putExtra(ProfileActivity.USER_KEY, new User(loginField.getText().toString(), passField.getText().toString()));
                     startActivity(startProfileIntent);
                     getActivity().finish();
                 } else {
